@@ -1,0 +1,31 @@
+# Arquivos tempor�rios
+bin/
+obj/
+
+# Arquivos de compila��o
+*.exe
+*.pdb
+*.dll
+
+# Arquivos gerados pela IDE
+.vscode/
+*.suo
+*.user
+*.sln.docstates
+
+# Pacotes NuGet
+*.nupkg
+packages/
+
+# Arquivos de log
+*.log
+
+# Arquivos de configura��o do sistema
+Thumbs.db
+Desktop.ini
+
+# Arquivos de hist�rico do Windows
+$RECYCLE.BIN/
+
+# Arquivos de cache do Visual Studio
+*.vs/
