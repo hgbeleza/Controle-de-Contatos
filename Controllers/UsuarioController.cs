@@ -23,6 +23,28 @@ namespace CadastroContatos.Controllers
             return View();
         }
 
+        public IActionResult ApagarConfirmacao(int id)
+        {
+            UsuarioModel usuario = _usuarioRepositorio.ListarPorId(id);
+            return View(usuario);
+        }
+
+        public IActionResult Apagar(int id)
+        {
+            try
+            {
+                _usuarioRepositorio.Apagar(id);
+                TempData["MensagemSucesso"] = "Usuário deletado com sucesso!";
+                return RedirectToAction("Index");
+            }
+            catch (Exception error)
+            {
+                TempData["MensagemError"] = $"Ops! Falha ao deletar o usuário. Detalhes do error: {error.Message}";
+                return RedirectToAction("Index");
+            }
+
+        }
+
         [HttpPost]
         public IActionResult Criar(UsuarioModel usuario)
         {
@@ -39,6 +61,43 @@ namespace CadastroContatos.Controllers
             catch (Exception error)
             {
                 TempData["MensagemError"] = $"Ops! Falha ao cadastrar o usuario. Detalhes do error: {error.Message}";
+                return RedirectToAction("Index");
+            }
+        }
+
+        public IActionResult Editar(int id)
+        {
+            UsuarioModel usuario = _usuarioRepositorio.ListarPorId(id);
+            return View(usuario);
+        }
+
+        [HttpPost]
+        public IActionResult Alterar(UsuarioSemSenhaModel usuarioSemSenha)
+        {
+            try
+            {
+                UsuarioModel usuario = null;
+
+                if (ModelState.IsValid)
+                {
+                    usuario = new UsuarioModel()
+                    {
+                        Id = usuarioSemSenha.Id,
+                        Nome = usuarioSemSenha.Nome,
+                        Login = usuarioSemSenha.Login,
+                        Email = usuarioSemSenha.Email,
+                        Perfil = usuarioSemSenha.Perfil
+                    };
+
+                    _usuarioRepositorio.Atualizar(usuario);
+                    TempData["MensagemSucesso"] = "Usuario alterado com sucesso!";
+                    return RedirectToAction("Index");
+                }
+                return View("Editar", usuario);
+            }
+            catch (Exception error)
+            {
+                TempData["MensagemError"] = $"Ops! Não conseguimos alterar o usuário. Detalhes do error: {error.Message}";
                 return RedirectToAction("Index");
             }
         }
