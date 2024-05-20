@@ -1,4 +1,5 @@
-﻿using CadastroContatos.Models;
+﻿using CadastroContatos.Helper;
+using CadastroContatos.Models;
 using CadastroContatos.Repositorio;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,15 +8,25 @@ namespace CadastroContatos.Controllers
     public class LoginController : Controller
     {
         private readonly IUsuarioRepositorio _usuarioRepositorio;
+        private readonly ISessao _sessao;
 
-        public LoginController(IUsuarioRepositorio usuarioRepositorio)
+        public LoginController(IUsuarioRepositorio usuarioRepositorio, ISessao sessao)
         {
             _usuarioRepositorio = usuarioRepositorio;
+            _sessao = sessao;
         }
 
         public IActionResult Index()
         {
+            if (_sessao.BuscarSessaoDoUsario() != null) return RedirectToAction("Index", "Home");
+
             return View();
+        }
+
+        public IActionResult Sair()
+        {
+            _sessao.RemoverSessaoDoUsuario();
+            return RedirectToAction("Index", "Login");
         }
 
         [HttpPost]
@@ -31,6 +42,7 @@ namespace CadastroContatos.Controllers
                     {
                         if (usuario.SenhaValida(loginModel.Senha))
                         {
+                            _sessao.CriarSessaoDoUsuario(usuario);
                             return RedirectToAction("Index", "Home");
                         }
 
