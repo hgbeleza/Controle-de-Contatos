@@ -12,9 +12,12 @@
         <li class="nav-item">
             <a class="nav-link" asp-controller="Contato" asp-action="Index">Contatos</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" asp-controller="Usuario" asp-action="Index">Úsuarios</a>
-        </li>
+        @if (Model.Perfil == PerfilEnum.Admin)
+        {
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Usuario" asp-action="Index">Úsuarios</a>
+            </li>
+        }
         <li class="nav-item">
             <a class="nav-link" asp-controller="Login" asp-action="Sair">Sair</a>
         </li>

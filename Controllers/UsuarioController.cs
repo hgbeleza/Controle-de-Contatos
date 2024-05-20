@@ -1,9 +1,11 @@
+using CadastroContatos.Filters;
 using CadastroContatos.Models;
 using CadastroContatos.Repositorio;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CadastroContatos.Controllers
 {
+    [PaginaParaUsuarioLogado]
     public class UsuarioController : Controller
     {
         private readonly IUsuarioRepositorio _usuarioRepositorio;
