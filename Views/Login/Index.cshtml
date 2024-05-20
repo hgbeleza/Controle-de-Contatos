@@ -1,0 +1,52 @@
+﻿@model LoginModel
+@{
+    Layout = "_Layout_Deslogada";
+    ViewData["Title"] = "´Página de login ";
+}
+
+<section class="vh-100">
+  <div class="container-fluid h-custom">
+    @if (TempData["MensagemError"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            <button type="button" class="btn btn-danger btn-sm close-alert" aria-label="Close">X</button>
+            @TempData["MensagemError"]
+        </div>
+    }
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-md-9 col-lg-6 col-xl-5">
+        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+          class="img-fluid" alt="Sample image">
+      </div>
+      <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+        <form asp-controller="Login" asp-action="Entrar" method="post">
+          <!-- Email input -->
+          <div data-mdb-input-init class="form-outline mb-4">
+            <label class="form-label" for="login">Login</label>
+            <input type="text" id="login" asp-for="Login" class="form-control form-control-lg"/>
+            @Html.ValidationMessageFor(x => x.Login)
+          </div>
+
+          <!-- Password input -->
+          <div data-mdb-input-init class="form-outline mb-3">
+            <label class="form-label" for="senha">Password</label>
+            <input type="password" id="senha" asp-for="Senha" class="form-control form-control-lg"/>
+            @Html.ValidationMessageFor(x => x.Senha)
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <!-- Checkbox -->
+            <a href="#!" class="text-body">Forgot password?</a>
+          </div>
+
+          <div class="text-center text-lg-start mt-4 pt-2">
+            <button  type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg"
+              style="padding-left: 2.5rem; padding-right: 2.5rem;">Entrar</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+

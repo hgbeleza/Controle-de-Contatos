@@ -12,6 +12,11 @@ public class UsuarioRepositorio : IUsuarioRepositorio
         _context = context;
     }
 
+    public UsuarioModel BuscarPorLogin(string login)
+    {
+        return _context.Usuarios.FirstOrDefault(x => x.Login.ToUpper() == login.ToUpper());
+    }
+
     public UsuarioModel Adicionar(UsuarioModel usuario)
     {
         usuario.DataCadastro = DateTime.Now;
